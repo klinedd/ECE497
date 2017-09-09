@@ -51,7 +51,7 @@ GPIO.add_event_detect(buttonR, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonU, GPIO.BOTH, callbacl = updateLED)
 
-Ttry:
+try:
 	while True:
 		time.sleep(100)
 
