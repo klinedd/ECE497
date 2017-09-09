@@ -51,12 +51,12 @@ GPIO.add_event_detect(buttonR, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonU, GPIO.BOTH, callbacl = updateLED)
 
-Ttry:
+TRY:
 	while True:
 		time.sleep(100)
 
 
-execpt KeyboardInterrupt:
+execpt KeyboardInterrupt;
 	print("Cleaning Up")
 	GPIO.cleanup()
 
