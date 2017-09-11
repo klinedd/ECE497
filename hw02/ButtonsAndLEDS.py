@@ -4,7 +4,7 @@ import Adafruit_BBIO.GPIO as GPIO
 import time
 
 buttonL = "GP0_3"
-buttonR = "GP0_4" 
+buttonR = "GP0_4"
 buttonD = "GP0_5"
 buttonU = "GP0_6"
 
@@ -12,8 +12,8 @@ buttonU = "GP0_6"
 #Are these pins available for use like this on GPS?
 LED1 = "GP1_3"
 LED2 = "GP1_4"
-LED3 = "GP1_5"
-LED4 = "GP1_6"
+LED3 = "GREEN"
+LED4 = "RED"
 
 #LED/output Setup
 GPIO.setup(LED1, GPIO.OUT)
@@ -36,9 +36,9 @@ GPIO.output(LED4, 1)
 
 
 #map buttons to LEDs
-map - {buttonL : LED1, buttonR : LED2, buttonU : LED3, buttonD : LED4}
+map = {buttonL : LED1, buttonR : LED2, buttonU : LED3, buttonD : LED4}
 
-def updateLED(channel1):
+def updateLED(channel):
 	print("channel = " + channel)
 	state = GPIO.input(channel)
 	GPIO.output(map[channel], state)
@@ -49,16 +49,18 @@ print("Running...")
 GPIO.add_event_detect(buttonL, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonR, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateLED)
-GPIO.add_event_detect(buttonU, GPIO.BOTH, callbacl = updateLED)
+GPIO.add_event_detect(buttonU, GPIO.BOTH, callback = updateLED)
 
-TRY:
+try:
+
 	while True:
 		time.sleep(100)
 
 
-execpt KeyboardInterrupt;
+except KeyboardInterrupt:
 	print("Cleaning Up")
 	GPIO.cleanup()
+GPIO.cleanup()
 
 
 

@@ -3,17 +3,17 @@
 import Adafruit_BBIO.GPIO as GPIO
 import time
 
-buttonL = "GP0_3"
-buttonR = "GP0_4" 
-buttonD = "GP0_5"
-buttonU = "GP0_6"
+buttonL = "gpio1_25"
+buttonR = "gpio1_17" 
+buttonD = "gpio1_20"
+buttonU = "gpio1_17"
 
 
 #Are these pins available for use like this on GPS?
-LED1 = "GP1_3"
-LED2 = "GP1_4"
-LED3 = "GP1_5"
-LED4 = "GP1_6"
+LED1 = "gpio3_17"
+LED2 = "gpio3_20"
+LED3 = "USR0"
+LED4 = "USR1"
 
 #LED/output Setup
 GPIO.setup(LED1, GPIO.OUT)
