@@ -1,12 +1,35 @@
 #!/usr/bin/env python3
 
+import Adafruit_BBIO.GPIO as GPIO
+import time
 import pygame, sys
 from pygame.locals import *
 
-pygame.init()
-
 size = input('What X by X size grid do you want?')
 screen = pygame.display.set_mode((100*size,100*size))
+
+
+pygame.init()
+
+buttonU = "GP0_3"
+buttonD = "GPO_4"
+buttonL = "GP0_5"
+buttonR = "GP0_6"
+
+GPIO.setup(buttonU, GPIO.IN)
+GPIO.setup(buttonD, GPIO.IN)
+GPIO.Setup(buttonL, GPIO.IN)
+GPIO.setup(buttonR, GPIO.IN)
+
+GPIO.add_event_detect(buttonU, GPIO.BOTH, callback = updateGrid)
+GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateGrid)
+GPIO.add_event_detect(buttonL, GPIO.BOTH, callback = updateGrid)
+GPIO.add_event_detect(buttonR, GPIO.BOTH, callback = updateGrid)
+
+GPIO.add_event_detect("PAUSE", GPIO.BOTH, callback = terminate)
+GPIO.add_event_detect("MODE", GPIO.BOTH, callback = clear)
+
+
 
 #variables used to keep track of where the "etch-a-sketch" is writing
 x=0
@@ -23,7 +46,7 @@ screen.fill((255,255,255))
 #a continuous while loop so key inputs can always be searched for
 while 1:
     #set the frequency on how often to check for user input
-    clock.tick(13)
+    clock.tick(10)
 
     #creates the rectangle that is drawn where the x and y variables are pointing to
     Rect = pygame.Rect(x, y, 100, 100)
@@ -37,21 +60,39 @@ while 1:
 
     #looks for when any of the arrow keys are pressed and sets the x and y variables accordingly
     #also checks to make sure the "etch-a-sketch" does not go off the edge of the screen
-    key = pygame.key.get_pressed()
-    if key[pygame.K_RIGHT]:
-        if x < 100*(size-1): x+=100
-    if key[pygame.K_LEFT]:
-        if x > 50: x-=100
-    if key[pygame.K_UP]:
-        if y > 50: y-=100
-    if key[pygame.K_DOWN]:
-        if y < 100*(size-1): y+=100
+
+
+
+def updateGrid(channel):
+	if channel == "GP0_6":
+		 if x < 100*(size-1): x+=100
+    	if channel == "GP0_5":
+        	if x > 50: x-=100
+    	if channel == "GP0_3":
+        	if y > 50: y-=100
+    	if channel == "GP0_4":
+        	if y < 100*(size-1): y+=100
+
+
 
     #event handlers to eithe quit the program or whipe the board back to  a blank grid
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == KEYDOWN and event.key == K_ESCAPE:
-            sys.exit()
-        elif event.type == KEYDOWN and event.key == K_SPACE:
-            screen.fill((255,255,255))
+def terminate(channel):
+	if channel == "PAUSE":
+		sys.exit()
+
+
+def clear(channel):
+	if channel == "MODE":
+		screen.fill((255,255,255))
+
+
+try:
+
+        while True:
+                time.sleep(100)
+
+except KeyboardInterrupt:
+        print("cleaning Up")
+        GPIO.cleanup()
+GPIO.cleanup()
+

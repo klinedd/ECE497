@@ -36,11 +36,8 @@ GPIO.output(LED4, 1)
 
 
 #map buttons to LEDs
-<<<<<<< HEAD
+
 map = {buttonL : LED1, buttonR : LED2, buttonU : LED3, buttonD : LED4}
-=======
-map = {buttonL: LED1, buttonR: LED2, buttonU: LED3, buttonD: LED4}
->>>>>>> c5a7b02027f4c936d87143d30b6eba170c9253e0
 
 def updateLED(channel):
 	print("channel = " + channel)
@@ -52,16 +49,10 @@ print("Running...")
 
 GPIO.add_event_detect(buttonL, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonR, GPIO.BOTH, callback = updateLED)
-GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateLED)
 GPIO.add_event_detect(buttonU, GPIO.BOTH, callback = updateLED)
-<<<<<<< HEAD
+GPIO.add_event_detect(buttonD, GPIO.BOTH, callback = updateLED) 
 
 try:
-
-=======
-
-try:
->>>>>>> c5a7b02027f4c936d87143d30b6eba170c9253e0
 	while True:
 		time.sleep(100)
 
