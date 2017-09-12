@@ -1,2 +1,2 @@
-sudo apt-get install python-pygames
+sudo apt-get install python-pygame
 
