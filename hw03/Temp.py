@@ -8,7 +8,7 @@ import smbus
 
 bus = smbus.SMBus(1)
 address1 = 0x49
-address2 = 0x4a
+address2 = 0x4agit
 
 while True:
         temp1 = bus.read_byte_data(address1, 0)
@@ -18,7 +18,7 @@ while True:
         print("Temperature 1 is")
         print(far1, end = "\n")
         print("Temperature 2 is")
-        print(temp2, end = "\n")
+        print(far2, end = "\n")
         time.sleep(0.25)
         
         
