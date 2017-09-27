@@ -18,3 +18,7 @@ Etch-a-sketch:
 	*note* I seem to be having a debouncing issue with the buttons to
 	where the pressing the button once will move the etch-a-sketch two
 	blocks instead of one, causing a break in the etcha-a-sketch line.
+
+# Comments from Prof. Yoder
+# Nice documentation  
+# Grade:  10/10
