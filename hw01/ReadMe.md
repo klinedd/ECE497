@@ -20,7 +20,8 @@ List below instructs what I have done for each portion of hw01:
 
 // Comment from Prof. Yoder
 // I'm having trouble running your code.  Demo in class
-// Grade:  3/10
+// Thanks for the demo
+// Grade:  10/10
 
 sudo ./etch.py 
 sudo: unable to resolve host bone-0834
