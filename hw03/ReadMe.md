@@ -10,3 +10,7 @@ Then all you have to do is press the buttons to move your trail around.
 The temperature sensor program can be ran with "python3 Temp.py".
 This program is straight forward. Just rub your finger against the palm of your hand to get it warm and then 
 touch it to the top of one of the sensors. You will then see the alert message pop up.
+
+# Comments from Prof. Yoder
+# Looks good.  Nice comments.
+# Grade:  10/10
