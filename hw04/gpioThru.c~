@@ -87,21 +87,18 @@ int main(int argc, char *argv[]) {
     while(keepgoing) {
     	if(*gpioL_datain & GPIO3_17) {
             *gpioL_setdataout_addr=GPIO3_2;
-            printf("ButtonL being Pressed\n");
     	} else {
             *gpioL_cleardataout_addr = GPIO3_2;
     	}
-    	if(!(*gpioB_datain & GPIO3_20)){
+    	if(*gpioB_datain & GPIO3_20){
     	    *gpioB_setdataout_addr = GPIO3_1;
-    	    printf("ButtonR being Pressed\n");
     	} else {
     	    *gpioB_cleardataout_addr = GPIO3_1;
     	}
     	  
-        usleep(100000);
+        //usleep(1);
     }
 
     close(fd);
     return 0;
 }
-
