@@ -16,6 +16,10 @@
 #define GPIO_SETDATAOUT 0x194
 #define GPIO_CLEARDATAOUT 0x190
 
+#define GPIO3_START_ADDR 0x481ae000
+#define GPIO3_END_ADDR 0X481B0000
+#define GPIO3_SIZE (GPIO3_END_ADDR - GPIO3_START_ADDR)
+
 #define USR0 (1<<21)
 #define USR1 (1<<22)
 #define USR2 (1<<23)
@@ -23,4 +27,11 @@
 #define GPIO_03  (1<<3)
 #define GPIO_07  (1<<7)
 #define GPIO_60  (1<<28)
+#define GPIO3_17 (1<<17)
+#define GPIO3_20 (1<<20)
+#define GPIO3_2 (1<<2)
+#define GPIO3_1 (1<<1)
+
+
+
 #endif
