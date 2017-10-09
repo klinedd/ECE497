@@ -2,6 +2,7 @@
     var firstconnect = true,
         i2cNum  = "0x70",
 	disp = [];
+	dispR = [];
 
 // Create a matrix of LEDs inside the <table> tags.
 var matrixData;
@@ -24,16 +25,38 @@ $("#slider1").slider({min:0, max:15, slide: function(event, ui) {
 // Send one column when LED is clicked.
 function LEDclick(i, j) {
 //	alert(i+","+j+" clicked");
-    disp[i] ^= 0x1<<j;
-    socket.emit('i2cset', {i2cNum: i2cNum, i: 2*i, 
+    if(disp[i] >> j & 0x1 === 1){
+        if(dispR[i] >> j & 0x1 ===1){
+            disp[i] ^= 0x1 << j;
+            socket.emit('i2cset', {i2cNum: i2cNum, i: 2*i, 
 			     disp: '0x'+disp[i].toString(16)});
-//	socket.emit('i2c', i2cNum);
-    // Toggle bit on display
-    if(disp[i]>>j&0x1 === 1) {
-        $('#id'+i+'_'+j).addClass('on');
-    } else {
-        $('#id'+i+'_'+j).removeClass('on');
+			$('#id'+i+'_'+j).addClass('red'); 
+        }
+        else{
+            dispR[i] ^= 0x1 << j;
+            socket.emit('i2cset', {i2cNum: i2cNum, i: (2*i) + 1, 
+			     disp: '0x'+disp[i].toString(16)});
+			$('#id'+i+'_'+j).addClass('yellow');
+        }
     }
+    else{
+        if(dispR[i]>>j&0x1 === 1) {
+            dispR[i] ^= 0x1<<j;
+            socket.emit('i2cset', {i2cNum: i2cNum, i: (2*i)+1, 
+			     disp: '0x'+dispR[i].toString(16)});
+			$('#id'+i+'_'+j).removeClass('green');
+			$('#id'+i+'_'+j).removeClass('yellow');
+			$('#id'+i+'_'+j).removeClass('red');
+        }
+        else{
+            disp[i] ^= 0x1<<j;
+            socket.emit('i2cset', {i2cNum: i2cNum, i: 2*i, 
+			     disp: '0x'+disp[i].toString(16)});
+			$('#id'+i+'_'+j).addClass('green');
+        }
+    }
+
+
 }
 
     function connect() {
@@ -84,6 +107,8 @@ function LEDclick(i, j) {
     function matrix(data) {
         var i, j;
         disp = [];
+        //used to keep track of red
+        dispR = [];
         //        status_update("i2c: " + data);
         // Make data an array, each entry is a pair of digits
         data = data.split(" ");
@@ -93,6 +118,7 @@ function LEDclick(i, j) {
         // Convert from hex.
         for (i = 0; i < data.length; i += 2) {
             disp[i / 2] = parseInt(data[i], 16);
+            dispR[i/2] = parseInt(data[i+1],16);
         }
         //        status_update("disp: " + disp);
         // i cycles through each column
@@ -100,9 +126,21 @@ function LEDclick(i, j) {
             // j cycles through each bit
             for (j = 0; j < 8; j++) {
                 if (((disp[i] >> j) & 0x1) === 1) {
-                    $('#id' + i + '_' + j).addClass('on');
+                    if((dispR[i] >> j & 0x1 === 1)){
+                        $('#id' + i + '_' + j).addClass('yellow');
+                    }
+                    else {
+                        $('#id' + i + '_' + j).addClass('green');
+                    }
                 } else {
-                    $('#id' + i + '_' + j).removeClass('on');
+                    if((dispR[i] >> j & 0x1 === 1)){
+                        $('#id' + i + '_' + j).addClass('red');
+                    }
+                    else{
+                        $('#id' + i + '_' + j).removeClass('yellow');
+                        $('#id' + i + '_' + j).removeClass('green');
+                        $('#id' + i + '_' + j).removeClass('red');
+                    }
                 }
             }
         }
