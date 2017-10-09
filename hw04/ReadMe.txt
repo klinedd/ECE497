@@ -12,3 +12,8 @@ GPIO via mmap:  The two necessary files for this portion of the homework are bea
 Rotary Encoders:The file to get the rotary encoders to move the LEDs on the board like an etch-a-sketch 
                 is EtchASkechMKIV.py. To run this file make sure you have rcpy installed. Instructions
                 for that are on the Homework04 assignment doc. 
+
+# Comments from Prof. Yoder
+# Found your memory map file
+# Looks good.
+# Grade:  10/10
