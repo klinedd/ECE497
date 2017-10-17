@@ -84,7 +84,7 @@ int main()
 	printf(" \n");
 	
 	// Black out the screen
-	short color = (0<<11) | (0 << 5) | 8;  // RGB
+	short color = 0 | 0 | 0;  // RGB
 	for(int i=0; i<screensize; i+=2) {
 	    fbp[i  ] = color;      // Lower 8 bits
 	    fbp[i+1] = color>>8;   // Upper 8 bits
@@ -99,7 +99,7 @@ int main()
         // Update framebuffer
         // Figure out where in memory to put the pixel
         x = (rc_get_encoder_pos(1)/2 + vinfo.xres) % vinfo.xres;
-        y = (rc_get_encoder_pos(3)/2 + vinfo.yres) % vinfo.yres;
+        y = (rc_get_encoder_pos(2)/2 + vinfo.yres) % vinfo.yres;
         // printf("xpos: %d, xres: %d\n", rc_get_encoder_pos(1), vinfo.xres);
         
         if((x != xold) || (y != yold)) {
@@ -107,17 +107,23 @@ int main()
             // Set old location to green
             location = (xold+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
                        (yold+vinfo.yoffset) * finfo.line_length;
-            int r = 0;     // 5 bits
-            int g = 17;      // 6 bits
-            int b = 0;      // 5 bits
+            int r = 31;     // 5 bits
+            int g = 63;      // 6 bits
+            int b = 31;      // 5 bits
             unsigned short int t = r<<11 | g << 5 | b;
-            *((unsigned short int*)(fbp + location)) = t;
+            
             
             // Set new location to white
-            location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
-                       (y+vinfo.yoffset) * finfo.line_length;
+            for(int i=-3; i <= 3; i++){
+                for(int j = -3; j <= 3; j++){
+                    location = (x+vinfo.xoffset + i) * (vinfo.bits_per_pixel/8) +
+                       (y+vinfo.yoffset + j) * finfo.line_length;
+                    *((unsigned short int*)(fbp + location)) = t;
+                }
+            }
+            
     
-            *((unsigned short int*)(fbp + location)) = 0xff;
+            *((unsigned short int*)(fbp + location)) = t;
             xold = x;
             yold = y;
         }
