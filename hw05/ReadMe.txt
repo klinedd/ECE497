@@ -9,3 +9,8 @@ on your board.
 
 The typed answers for the questions to this hw can be seen in the file
 HW05_AnswersToQuestions.odt. 
+
+// Comments from Prof. Yoder
+// Questions were answered
+// It works!
+// Grade:  10/10
