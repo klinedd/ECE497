@@ -5,12 +5,9 @@ CFLAGS  := -O3 -g
 #
 # Programs
 #
-all:	gpioThru gpioToggle
+all:	 MMAP
 
-gpioToggle: gpioToggle.c beaglebone_gpio.h
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
-
-gpioThru:  gpioThru.c beaglebone_gpio.h
+MMAP:  MMAP.c beaglebone_gpio.h
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 #
@@ -21,7 +18,7 @@ gpioThru:  gpioThru.c beaglebone_gpio.h
 	$(CC) $(CFLAGS) $(TOOLS_CFLAGS) -c $< -o $@
 
 clean:
-	rm gpioToggle gpioThru
+	rm MMAP
 
 print:
 	@echo LDFLAGS = $(LDFLAGS)
