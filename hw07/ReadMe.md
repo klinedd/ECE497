@@ -9,6 +9,6 @@ rquires nothing special. For MMAP, run the make file and then run the file gener
 For the Kernel module just insert the .ko file.  
 
 // Comments from Prof. Yoder
-// ReadMe Missing
-// Project page: Good start
-// Grade:  5/10
+// I found the report, looks good
+
+// Grade:  10/10
